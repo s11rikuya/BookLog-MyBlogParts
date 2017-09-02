@@ -1,0 +1,55 @@
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<script>
+	$( function() {
+	  ulObj = $("#demo"),
+	  ulObj2 = $(".demo-box"),
+
+	  $.ajax({
+	    url: 'http://api.booklog.jp/json/s11riku?category=0&count=200',
+	    type:'GET',
+	    dataType: 'jsonp',
+	    timeout:10000,
+	    success: function(data) {
+	      console.log(data["books"].length);
+	      console.log("success");
+	      for (var i = 0; i < data["books"].length; i++) {
+	        ulObj.append($("<div>").addClass("demo-box").attr({"id":data["books"][i].id})
+	        .append($("<p>").append($("<img>").attr({"src":data["books"][i].image})))
+	        .append($("<p>").append($("<a>").attr({"href":data["books"][i].url}).text(data["books"][i].title)))
+	      );
+	    }
+	  },
+	});
+	});
+
+
+</script>
+<style>
+#demo {
+}
+.demo-box {
+	border: 1px solid black;
+	vertical-align: top;
+	text-align: center;
+	display: inline-block;
+	width: 160px;
+	height: 160px;
+	font-size: 10px;
+	margin: 5px;
+}
+
+.demo-box p img {
+	margin: 10px;
+	border: 1px solid black;
+}
+
+</style>
+<p>読んだ本リスト</p>
+
+	<div id='demo'>
+
+	</div>
+	<p style='margin:0px;'>Used Booklog Api</p>
